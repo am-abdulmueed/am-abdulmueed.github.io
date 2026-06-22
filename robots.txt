@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://gokadzev.github.io/sitemap.xml
+Sitemap: https://am-abdulmueed.github.io/sitemap.xml
