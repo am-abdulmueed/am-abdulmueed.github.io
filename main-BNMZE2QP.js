@@ -13831,7 +13831,7 @@ var Ka = class e {
 var co = class e {
     projects = [{
         id: 1,
-        url: "https://github.com/am-abdulmueed/pluginstream/releases",
+        url: "https://am-abdulmueed.github.io/pluginstream-web",
         image: "websites/pluginstream.png",
         title: "PluginStream",
         description: "A high-performance movies streaming Android application built with native technologies.",
@@ -13856,6 +13856,7 @@ var co = class e {
         repositoryName: "code-bin"
     },{
         id: 4,
+        url: "https://am-abdulmueed.github.io/feelife/",
         image: "websites/feelife.png",
         title: "Feelife",
         description: "A dynamic and fully interactive web application designed for seamless music streaming.",
@@ -13863,6 +13864,7 @@ var co = class e {
         repositoryName: "Feelife"
     }, {
         id: 5,
+        url: "https://am-abdulmueed.github.io/thenorthpole/",
         image: "websites/thenorthpole.png",
         title: "THENORTHPOLE",
         description: "A sleek and modern e-commerce storefront designed specifically for a premium backpack store.",
@@ -13870,6 +13872,7 @@ var co = class e {
         repositoryName: "THENORTHPOLE"
     }, {
         id: 6,
+        url: "https://am-abdulmueed.github.io/techshed/",
         image: "websites/electronicstore.png",
         title: "TechShed",
         description: "A clean and fully responsive e-commerce web platform built for modern electronic stores.",
