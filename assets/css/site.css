@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════════════════════════
-   DESIGN TOKENS — Manga / inked-comic (Day default · Night toggle)
+   DESIGN TOKENS — Manga / inked-comic with selectable color themes
    Color = roles, not hex. Accent = FILL only, never text on paper.
    ══════════════════════════════════════════════════════════════ */
 :root {
@@ -56,6 +56,54 @@
     --screentone: rgba(240, 233, 218, 0.14);
     --speedline: rgba(240, 233, 218, 0.85);
     --hatch: rgba(240, 233, 218, 0.08);
+}
+
+[data-theme="sepia"] {
+    --page: #efe3cc;
+    --surface: #fbf3e2;
+    --surface-variant: #e3d1b1;
+    --ink: #34271b;
+    --ink-soft: #6f5b46;
+    --shadow: #34271b;
+    --accent: #91483b;
+    --on-accent: #fffaf0;
+    --warn: #d6a04b;
+    --warn-on: #2b1d0d;
+    --screentone: rgba(52, 39, 27, 0.14);
+    --speedline: rgba(52, 39, 27, 0.88);
+    --hatch: rgba(52, 39, 27, 0.09);
+}
+
+[data-theme="ocean"] {
+    --page: #071923;
+    --surface: #102a36;
+    --surface-variant: #1b3b48;
+    --ink: #e6f4f5;
+    --ink-soft: #a6c4ca;
+    --shadow: #020c12;
+    --accent: #62c8d0;
+    --on-accent: #06252b;
+    --warn: #f0b45e;
+    --warn-on: #211606;
+    --screentone: rgba(230, 244, 245, 0.13);
+    --speedline: rgba(230, 244, 245, 0.84);
+    --hatch: rgba(230, 244, 245, 0.08);
+}
+
+[data-theme="forest"] {
+    --page: #111b17;
+    --surface: #1b2a22;
+    --surface-variant: #2a3c30;
+    --ink: #e9f1e7;
+    --ink-soft: #b1c3b1;
+    --shadow: #080e0a;
+    --accent: #a5d787;
+    --on-accent: #142410;
+    --warn: #e8ba6a;
+    --warn-on: #21190a;
+    --screentone: rgba(233, 241, 231, 0.13);
+    --speedline: rgba(233, 241, 231, 0.84);
+    --hatch: rgba(233, 241, 231, 0.08);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -196,15 +244,18 @@ body::before {
     color: var(--ink);
 }
 
-.top-bar__brand img {
+.top-bar__brand svg {
+    display: block;
     width: 36px; height: 36px;
     border-radius: 0;
     border: var(--bw-chip) solid var(--ink);
     box-shadow: 2px 2px 0 var(--shadow);
+    color: var(--ink);
+    flex-shrink: 0;
     transition: transform 160ms var(--ease-spring);
 }
 
-.top-bar__brand:hover img { transform: rotate(-6deg); }
+.top-bar__brand:hover svg { transform: rotate(-6deg); }
 .top-bar__brand span {
     font-family: var(--font-display);
     font-size: 1.4rem;
@@ -268,10 +319,122 @@ body::before {
 
 .theme-toggle[data-active="sun"] .t-sun,
 .theme-toggle[data-active="moon"] .t-moon,
-.theme-toggle[data-active="auto"] .t-auto {
+.theme-toggle[data-active="auto"] .t-auto,
+.theme-toggle[data-active="sepia"] .t-sepia,
+.theme-toggle[data-active="ocean"] .t-ocean,
+.theme-toggle[data-active="forest"] .t-forest {
     opacity: 1;
     transform: scale(1) rotate(0deg);
 }
+
+/* Theme picker sheet */
+.theme-sheet {
+    position: fixed;
+    inset: auto 0 0;
+    width: min(100%, 560px);
+    max-width: none;
+    max-height: min(80vh, 560px);
+    margin: 0 auto;
+    padding: 0;
+    overflow: auto;
+    border: var(--bw-panel) solid var(--ink);
+    background: var(--surface);
+    color: var(--ink);
+    box-shadow: var(--sh-panel);
+}
+
+.theme-sheet::backdrop {
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(3px);
+}
+
+.theme-sheet__content { padding: 24px; }
+
+.theme-sheet__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.theme-sheet__eyebrow {
+    margin: 0 0 4px;
+    color: var(--ink-soft);
+    font: 700 0.7rem/1.2 var(--font-mono);
+    letter-spacing: 0.1em;
+}
+
+.theme-sheet__header h2 {
+    margin: 0;
+    font: 400 1.6rem/1.2 var(--font-display);
+    text-transform: uppercase;
+}
+
+.theme-sheet__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+    border: var(--bw-chip) solid var(--ink);
+    background: var(--surface);
+    color: var(--ink);
+    cursor: pointer;
+}
+
+.theme-sheet__close:hover,
+.theme-sheet__option:hover { background: var(--surface-variant); }
+.theme-sheet__close svg { width: 20px; height: 20px; }
+
+.theme-sheet__options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.theme-sheet__option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 52px;
+    padding: 10px 12px;
+    border: var(--bw-chip) solid var(--ink-soft);
+    background: var(--surface);
+    color: var(--ink);
+    font: 700 0.9rem/1.2 var(--font-body);
+    text-align: left;
+    cursor: pointer;
+}
+
+.theme-sheet__option[aria-pressed="true"] {
+    border-color: var(--ink);
+    box-shadow: 3px 3px 0 var(--shadow);
+}
+
+.theme-sheet__swatch {
+    flex: 0 0 20px;
+    width: 20px;
+    height: 20px;
+    border: 2px solid currentColor;
+    border-radius: 50%;
+}
+
+.theme-sheet__swatch--light { background: #f1eadc; color: #1b150d; }
+.theme-sheet__swatch--dark { background: #0c0a07; color: #f0e9da; }
+.theme-sheet__swatch--auto { background: linear-gradient(135deg, #f1eadc 50%, #0c0a07 50%); color: var(--ink-soft); }
+.theme-sheet__swatch--sepia { background: #efe3cc; color: #34271b; }
+.theme-sheet__swatch--ocean { background: #071923; color: #e6f4f5; }
+.theme-sheet__swatch--forest { background: #111b17; color: #e9f1e7; }
+
+.theme-sheet__check {
+    margin-left: auto;
+    color: var(--accent);
+    opacity: 0;
+}
+
+.theme-sheet__option[aria-pressed="true"] .theme-sheet__check { opacity: 1; }
 
 /* ══════════════════════════════════════════════════════════════
    BUTTONS — Anton uppercase, hard shadow, stamp-down press
@@ -1135,7 +1298,7 @@ body::before {
     letter-spacing: 0.02em;
 }
 
-.footer__brand img { width: 28px; height: 28px; border-radius: 0; border: 2px solid var(--ink); }
+.footer__brand svg { display: block; width: 28px; height: 28px; flex-shrink: 0; border-radius: 0; border: 2px solid var(--ink); color: var(--ink); }
 
 .footer__links { display: flex; gap: 20px; list-style: none; flex-wrap: wrap; }
 

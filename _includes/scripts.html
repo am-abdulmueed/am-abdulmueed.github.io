@@ -2,26 +2,48 @@
 (() => {
     /* ─── Theme Toggle ─── */
     const toggle = document.getElementById('themeToggle');
+    const themeSheet = document.getElementById('themeSheet');
     const html = document.documentElement;
-    const cycle = ['light', 'dark'];
+    const themes = [
+        { name: 'light', icon: 'sun', label: 'Light' },
+        { name: 'dark', icon: 'moon', label: 'Dark' },
+        { name: 'auto', icon: 'auto', label: 'System Auto' },
+        { name: 'sepia', icon: 'sepia', label: 'Sepia' },
+        { name: 'ocean', icon: 'ocean', label: 'Ocean' },
+        { name: 'forest', icon: 'forest', label: 'Forest' }
+    ];
+    const cycle = themes.map(theme => theme.name);
     let idx = 0;
     const saved = localStorage.getItem('gs-theme');
-    if (saved === 'light' || saved === 'dark') { idx = cycle.indexOf(saved); html.dataset.theme = saved; }
+    if (cycle.includes(saved)) { idx = cycle.indexOf(saved); html.dataset.theme = saved; }
     else { html.dataset.theme = 'light'; }
     syncIcon();
-    if (toggle) {
-        toggle.addEventListener('click', () => {
-            idx = (idx + 1) % cycle.length;
-            html.dataset.theme = cycle[idx];
-            localStorage.setItem('gs-theme', cycle[idx]);
-            syncIcon();
+    if (toggle && themeSheet) {
+        toggle.addEventListener('click', () => themeSheet.showModal());
+        themeSheet.querySelector('.theme-sheet__close').addEventListener('click', () => themeSheet.close());
+        themeSheet.addEventListener('click', event => {
+            if (event.target === themeSheet) themeSheet.close();
+        });
+        themeSheet.querySelectorAll('[data-theme-choice]').forEach(option => {
+            option.addEventListener('click', () => {
+                idx = cycle.indexOf(option.dataset.themeChoice);
+                html.dataset.theme = cycle[idx];
+                localStorage.setItem('gs-theme', cycle[idx]);
+                syncIcon();
+                themeSheet.close();
+            });
         });
     }
     function syncIcon() {
         if (!toggle) return;
-        const map = { light: 'sun', dark: 'moon' };
-        toggle.dataset.active = map[cycle[idx]];
-        toggle.title = `Theme: ${cycle[idx]}`;
+        const theme = themes[idx];
+        toggle.dataset.active = theme.icon;
+        toggle.title = `Theme: ${theme.label}`;
+        if (themeSheet) {
+            themeSheet.querySelectorAll('[data-theme-choice]').forEach(option => {
+                option.setAttribute('aria-pressed', String(option.dataset.themeChoice === theme.name));
+            });
+        }
     }
 
     /* ─── Top Bar Scroll ─── */

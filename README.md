@@ -112,7 +112,7 @@ Design goals, in order: fast on a cheap phone, readable without JavaScript, priv
 ├── blog/                    # Blog index + RSS template
 ├── contact/ download/ extensions/ features/ privacy-policy/ project/  # One folder per page
 ├── robots.txt llms.txt site.webmanifest
-├── favicon.* android-chrome-*.png apple-touch-icon.png og-default.png
+├── favicon.* android-chrome-*.png apple-touch-icon.png og-default.jpg
 ├── Gemfile / Gemfile.lock   # Local toolchain only — GitHub Pages ignores these
 └── run.bat / server.bat     # Local convenience scripts — excluded from the published site
 ```
@@ -315,7 +315,7 @@ Details worth knowing:
 [`_includes/head.html`](_includes/head.html) is the single source of truth for everything in `<head>`:
 
 - title/description/keywords, canonical URL, `robots` control
-- Open Graph and Twitter `summary_large_image` tags with a 1200×630 default card (`og-default.png`)
+- Open Graph and Twitter `summary_large_image` tags with a 1200×630 default card (`og-default.jpg`)
 - JSON-LD: `Person` site-wide, `WebSite` on the homepage, `BlogPosting` on posts, `BreadcrumbList` on inner pages, `SoftwareApplication` on `/download/`
 - verification meta tags for Google and Bing
 - favicons, web manifest, RSS `<link rel="alternate">`

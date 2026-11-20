@@ -2,7 +2,11 @@
     <div class="container">
         <div class="footer__inner">
             <div class="footer__brand">
-                <img src="/favicon-32x32.png" alt="" width="28" height="28" loading="lazy" decoding="async">
+                <svg viewBox="0 0 240 200" width="28" height="28" role="img" aria-label="AM monogram logo">
+                    <title>AM Monogram</title>
+                    <path fill="currentColor" fill-rule="evenodd" d="M24 158L58 24H90L132 158H102L94 126H62L54 158Z M68 102L78 62L88 102Z"/>
+                    <path fill="currentColor" d="M136 158V24H163L184 79L205 24H232V158H205V78L193 116H175L163 78V158Z"/>
+                </svg>
                 Abdul Mueed
             </div>
             <ul class="footer__links">
@@ -18,9 +22,12 @@
                 <li><a href="/dmca/">DMCA</a></li>
             </ul>
             <div class="footer__bottom">
-                © <span id="year">{{ site.time | date: '%Y' }}</span>
-                <a href="https://github.com/am-abdulmueed" target="_blank" rel="noopener">Abdul Mueed</a>.
-                Licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener">Apache License 2.0</a>.
+                <div class="footer__credit">
+                    <a href="https://github.com/am-abdulmueed" target="_blank" rel="noopener">Designed by Abdul Mueed</a>
+                </div>
+                <div class="footer__copyright">
+                    <strong>© <span id="year">2026</span></strong>
+                </div>
             </div>
         </div>
     </div>
