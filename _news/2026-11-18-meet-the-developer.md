@@ -56,7 +56,7 @@ My [portfolio](https://am-abdulmueed.vercel.app/) is where I experiment with int
 
 ### NexGama — coming soon
 
-[NexGama](https://nexgama.vercel.app/) is a game aggregator with an OTT-style interface: track, discover and explore your favourite gaming platforms, titles and updates in one place. It's early — think of it as a preview of where I'm heading next.
+[NexGama](/nexgama/) is a game aggregator with an OTT-style interface: track, discover and explore your favourite gaming platforms, titles and updates in one place. It's early — think of it as a preview of where I'm heading next.
 
 ## The stack I reach for
 

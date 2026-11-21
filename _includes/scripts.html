@@ -34,6 +34,29 @@
             });
         });
     }
+
+    /* ─── Mobile Menu Sheet ─── */
+    const menuToggle = document.getElementById('menuToggle');
+    const menuSheet = document.getElementById('menuSheet');
+    if (menuToggle && menuSheet) {
+        menuToggle.addEventListener('click', () => menuSheet.showModal());
+        menuSheet.querySelector('.menu-sheet__close').addEventListener('click', () => menuSheet.close());
+        menuSheet.addEventListener('click', event => {
+            if (event.target === menuSheet) menuSheet.close();
+        });
+        menuSheet.querySelectorAll('a[href]').forEach(link => {
+            const path = link.pathname;
+            if (path === location.pathname || (path === '/' && location.pathname === '/')) {
+                link.setAttribute('aria-current', 'page');
+            }
+        });
+    }
+
+    document.querySelectorAll('.top-bar__nav a[href]').forEach(link => {
+        if (link.pathname === location.pathname) {
+            link.setAttribute('aria-current', 'page');
+        }
+    });
     function syncIcon() {
         if (!toggle) return;
         const theme = themes[idx];

@@ -25,6 +25,9 @@ Front-matter knobs per page:
 
 {%- if page.image -%}
   {%- assign og_image = page.image -%}
+  {%- unless og_image contains "://" -%}
+    {%- assign og_image = og_image | prepend: site.url -%}
+  {%- endunless -%}
   {%- assign og_image_w = 1200 -%}
   {%- assign og_image_h = 630 -%}
 {%- elsif page.layout == 'news_post' -%}
@@ -77,6 +80,7 @@ Front-matter knobs per page:
 <meta property="og:title" content="{{ page_title }}">
 <meta property="og:description" content="{{ page_description }}">
 <meta property="og:image" content="{{ og_image }}">
+<meta property="og:image:secure_url" content="{{ og_image }}">
 <meta property="og:image:alt" content="{{ page.image_alt | default: page_title }}">
 <meta property="og:image:width" content="{{ og_image_w }}">
 <meta property="og:image:height" content="{{ og_image_h }}">

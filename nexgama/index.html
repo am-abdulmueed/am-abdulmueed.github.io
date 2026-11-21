@@ -1,0 +1,371 @@
+---
+layout: default
+title_full: NexGama — Play Games Instantly
+description: Discover 50 free browser games on NexGama. Search the catalogue and play arcade, racing, puzzle, and action games instantly—no account or installation needed.
+keywords: NexGama, free browser games, online games, arcade games, puzzle games, racing games, action games, instant games, no download games, Abdul Mueed
+image: /nexgama/og-image.jpg
+image_alt: NexGama — 50 free browser games to discover and play instantly.
+permalink: /nexgama/
+---
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "NexGama",
+  "url": "{{ site.url }}/nexgama/",
+  "description": {{ page.description | jsonify }},
+  "applicationCategory": "GameApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "Requires JavaScript and a modern web browser.",
+  "isAccessibleForFree": true,
+  "image": "{{ site.url }}{{ page.image }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ site.author.name }}",
+    "url": "{{ site.author.url }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "NexGama",
+    "url": "{{ site.url }}/nexgama/"
+  }
+}
+</script>
+
+<style>
+.nexgama {
+    padding-bottom: 4rem;
+}
+.nexgama-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 1.25rem;
+}
+.nexgama-search {
+    flex: 1;
+    min-width: 0;
+    height: 48px;
+    padding: 0 14px;
+    border: var(--bw-btn) solid var(--ink);
+    border-radius: 0;
+    background: var(--surface);
+    color: var(--ink);
+    font: 500 1rem/1 var(--font-body);
+    box-shadow: var(--sh-btn);
+}
+.nexgama-search:focus {
+    outline: none;
+    background: var(--page);
+    box-shadow: 6px 6px 0 var(--shadow);
+}
+.nexgama-grid-card h3 {
+    color: var(--ink);
+}
+.nexgama-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1rem;
+}
+.nexgama-grid-card {
+    min-width: 0;
+    display: block;
+    border: var(--bw-panel) solid var(--ink);
+    background: var(--surface);
+    box-shadow: 5px 5px 0 var(--shadow);
+    text-decoration: none;
+    transition: transform 140ms var(--ease), box-shadow 140ms var(--ease);
+}
+.nexgama-grid-card:hover,
+.nexgama-grid-card:focus-visible {
+    transform: translate(-3px, -3px);
+    box-shadow: 8px 8px 0 var(--shadow);
+}
+.nexgama-grid-card__thumb {
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-bottom: var(--bw-panel) solid var(--ink);
+    background: var(--surface-variant);
+}
+.nexgama-grid-card__thumb img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+}
+.nexgama-grid-card__body {
+    padding: 10px 12px 12px;
+}
+.nexgama-grid-card h3 {
+    margin: 0 0 4px;
+    overflow: hidden;
+    font: 700 0.95rem/1.25 var(--font-body);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.nexgama-grid-card span {
+    color: var(--ink-soft);
+    font: 700 0.6875rem/1 var(--font-mono);
+    text-transform: uppercase;
+}
+.nexgama-status {
+    margin: 1rem 0 0;
+    color: var(--ink-soft);
+}
+.nexgama-more {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+.nexgama-more .btn {
+    min-width: 180px;
+}
+.nexgama-launch {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    display: none;
+    place-items: center;
+    padding: 20px;
+    background: var(--page);
+}
+.nexgama-launch.is-open {
+    display: grid;
+}
+.nexgama-launch__panel {
+    width: min(460px, 100%);
+    padding: 26px;
+    border: var(--bw-panel) solid var(--ink);
+    background: var(--surface);
+    box-shadow: var(--sh-panel);
+    text-align: center;
+}
+.nexgama-launch__art {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 14px;
+    border: var(--bw-chip) solid var(--ink);
+    box-shadow: var(--sh-sub);
+    object-fit: cover;
+}
+.nexgama-launch__panel h2 {
+    margin: 0 0 8px;
+    text-transform: uppercase;
+}
+.nexgama-launch__panel p {
+    color: var(--ink-soft);
+}
+.nexgama-launch__stage {
+    position: fixed;
+    inset: 0;
+    z-index: 290;
+    display: none;
+    background: #000;
+}
+.nexgama-launch__stage.is-open {
+    display: block;
+}
+.nexgama-launch__stage iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+.nexgama-stage-close {
+    position: fixed;
+    top: max(12px, env(safe-area-inset-top));
+    left: 12px;
+    z-index: 310;
+    display: none;
+}
+.nexgama-stage-close.is-open {
+    display: inline-flex;
+}
+@media (max-width: 960px) {
+    .nexgama-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+    .nexgama-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+}
+@media (max-width: 640px) {
+    .nexgama-toolbar { gap: 8px; }
+    .nexgama-search { height: 44px; box-shadow: 3px 3px 0 var(--shadow); }
+    .nexgama-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .nexgama-grid-card { box-shadow: 3px 3px 0 var(--shadow); }
+    .nexgama-grid-card__body { padding: 8px 9px 10px; }
+    .nexgama-grid-card h3 { font-size: 0.8125rem; }
+    .nexgama-launch__panel { padding: 18px; }
+}
+</style>
+
+<section class="page-hero container">
+    <div class="page-hero__inner">
+        <p class="section-header__overline">Browser games</p>
+        <h1 class="page-hero__title">NexGama</h1>
+        <p class="page-hero__subtitle">Discover and launch games instantly. No account or installation needed.</p>
+    </div>
+</section>
+
+<section class="nexgama container" aria-label="NexGama game catalogue">
+    <div class="nexgama-toolbar">
+        <label class="sr-only" for="nexgamaSearch">Search games</label>
+        <input class="nexgama-search" id="nexgamaSearch" type="search" placeholder="Search games…" autocomplete="off">
+    </div>
+
+    <div class="section-header reveal" style="margin-top: 2rem;">
+        <p class="section-header__overline" id="nexgamaSectionOverline">Catalogue</p>
+        <h2 class="section-header__title" id="nexgamaSectionTitle">All games</h2>
+    </div>
+    <div class="nexgama-grid" id="nexgamaGrid" role="list" aria-live="polite"></div>
+    <p class="nexgama-status" id="nexgamaStatus" role="status">Loading games…</p>
+    <div class="nexgama-more">
+        <a class="btn btn--filled" href="https://play.google.com/store/apps/details?id=com.betapix.nexgama" target="_blank" rel="noopener noreferrer">See all on Google Play</a>
+    </div>
+</section>
+
+<div class="nexgama-launch" id="nexgamaLaunch" role="dialog" aria-modal="true" aria-labelledby="nexgamaLaunchTitle">
+    <div class="nexgama-launch__panel">
+        <img class="nexgama-launch__art" id="nexgamaLaunchArt" src="/nexgama/icon.png" alt="" width="120" height="120">
+        <h2 id="nexgamaLaunchTitle">Loading game</h2>
+        <p id="nexgamaLaunchText">Preparing the game player…</p>
+        <button class="btn btn--filled" id="nexgamaOpenNow" type="button">Open now</button>
+        <button class="btn btn--outlined" id="nexgamaCancel" type="button" style="margin-top:10px;width:100%">Cancel</button>
+    </div>
+</div>
+<div class="nexgama-launch__stage" id="nexgamaStage"></div>
+<button class="nexgama-stage-close btn btn--outlined" id="nexgamaStageClose" type="button">Close game</button>
+
+<script>
+(() => {
+    const dataUrl = '/nexgama/others.json';
+    const grid = document.getElementById('nexgamaGrid');
+    const status = document.getElementById('nexgamaStatus');
+    const search = document.getElementById('nexgamaSearch');
+    const sectionTitle = document.getElementById('nexgamaSectionTitle');
+    const sectionOverline = document.getElementById('nexgamaSectionOverline');
+    const launch = document.getElementById('nexgamaLaunch');
+    const launchArt = document.getElementById('nexgamaLaunchArt');
+    const launchTitle = document.getElementById('nexgamaLaunchTitle');
+    const launchText = document.getElementById('nexgamaLaunchText');
+    const stage = document.getElementById('nexgamaStage');
+    const stageClose = document.getElementById('nexgamaStageClose');
+    let games = [];
+
+    function escapeHtml(value) {
+        return String(value == null ? '' : value).replace(/[&<>"']/g, char => ({
+            '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+        }[char]));
+    }
+
+    function href(game) {
+        return '/nexgama/?game=' + encodeURIComponent(game.slug);
+    }
+
+    function card(game) {
+        return '<a class="nexgama-grid-card" role="listitem" href="' + href(game) + '">' +
+            '<div class="nexgama-grid-card__thumb"><img src="' + escapeHtml(game.image) + '" alt="" width="240" height="240" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=\'/nexgama/icon.png\'"></div>' +
+            '<div class="nexgama-grid-card__body"><h3>' + escapeHtml(game.title) + '</h3><span>Free game</span></div>' +
+        '</a>';
+    }
+
+    function render(list) {
+        grid.innerHTML = list.map(card).join('');
+        status.textContent = list.length ? list.length + ' games' : 'No games found.';
+    }
+
+    function openGame(game) {
+        launchArt.src = game.image;
+        launchTitle.textContent = game.title;
+        launchText.textContent = 'Preparing the game player…';
+        launch.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+        document.title = game.title + ' — NexGama';
+
+        const iframe = document.createElement('iframe');
+        iframe.src = game.url;
+        iframe.title = game.title;
+        iframe.allow = 'fullscreen; autoplay; encrypted-media; picture-in-picture; accelerometer; gyroscope';
+        iframe.setAttribute('allowfullscreen', '');
+
+        function start() {
+            launch.classList.remove('is-open');
+            stage.innerHTML = '';
+            stage.appendChild(iframe);
+            stage.classList.add('is-open');
+            stageClose.classList.add('is-open');
+        }
+
+        document.getElementById('nexgamaOpenNow').onclick = start;
+    }
+
+    function closeLaunch() {
+        launch.classList.remove('is-open');
+        document.body.style.overflow = '';
+        history.replaceState(null, '', '/nexgama/');
+        document.title = 'NexGama — Play Games Instantly';
+    }
+
+    function closeStage() {
+        stage.classList.remove('is-open');
+        stageClose.classList.remove('is-open');
+        stage.innerHTML = '';
+        document.body.style.overflow = '';
+        history.replaceState(null, '', '/nexgama/');
+        document.title = 'NexGama — Play Games Instantly';
+    }
+
+    search.addEventListener('input', () => {
+        const query = search.value.trim().toLowerCase();
+        const results = query ? games.filter(game =>
+            game.title.toLowerCase().includes(query) ||
+            game.slug.includes(query) ||
+            game.description.toLowerCase().includes(query)
+        ) : games;
+        sectionOverline.textContent = query ? 'Search' : 'Catalogue';
+        sectionTitle.textContent = query ? 'Results' : 'All games';
+        render(results);
+    });
+    document.getElementById('nexgamaCancel').addEventListener('click', closeLaunch);
+    stageClose.addEventListener('click', closeStage);
+
+    fetch(dataUrl)
+        .then(response => {
+            if (!response.ok) throw new Error('Catalogue unavailable');
+            return response.json();
+        })
+        .then(payload => {
+            const uniqueGames = new Map();
+            (payload.games || []).filter(game =>
+                game.slug && (game.gameURL || game.playgamaGameUrl)
+            ).forEach(game => {
+                if (uniqueGames.has(game.slug)) return;
+                const image = Array.isArray(game.images) && game.images[0]
+                    ? game.images[0]
+                    : '/nexgama/icon.png';
+                uniqueGames.set(game.slug, {
+                    slug: game.slug,
+                    title: game.title || game.slug,
+                    description: game.description || '',
+                    image,
+                    url: game.playgamaGameUrl || game.gameURL
+                });
+            });
+            games = Array.from(uniqueGames.values());
+
+            if (!games.length) {
+                status.textContent = 'No games available.';
+                return;
+            }
+
+            render(games);
+
+            const params = new URLSearchParams(location.search);
+            const slug = (params.get('game') || location.search.slice(1)).trim().toLowerCase();
+            const game = games.find(item => item.slug === slug);
+            if (game) openGame(game);
+        })
+        .catch(() => {
+            status.textContent = 'Could not load the NexGama catalogue.';
+        });
+})();
+</script>

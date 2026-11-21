@@ -282,9 +282,16 @@ body::before {
     background: var(--surface-variant);
     text-decoration: none;
 }
+ .top-bar__nav a[aria-current="page"] {
+    border-color: var(--ink);
+    background: var(--accent);
+    color: var(--on-accent);
+    box-shadow: 2px 2px 0 var(--shadow);
+}
 
 /* Download icon button — mobile par visible (chhota viewport par text nav hide ho jata hai) */
 .top-bar__dl { display: none; }
+.top-bar__nexgama { display: none; }
 
 /* ─── Icon Button ─── */
 .icon-btn {
@@ -325,6 +332,96 @@ body::before {
 .theme-toggle[data-active="forest"] .t-forest {
     opacity: 1;
     transform: scale(1) rotate(0deg);
+}
+
+.menu-toggle { display: none; }
+.menu-sheet {
+    position: fixed;
+    inset: auto 0 0;
+    width: min(100%, 560px);
+    max-width: none;
+    max-height: min(86vh, 620px);
+    margin: 0 auto;
+    padding: 0;
+    overflow: auto;
+    border: var(--bw-panel) solid var(--ink);
+    background: var(--surface);
+    color: var(--ink);
+    box-shadow: var(--sh-panel);
+}
+.menu-sheet::backdrop {
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(3px);
+}
+.menu-sheet__content { padding: 24px; }
+.menu-sheet__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+.menu-sheet__eyebrow {
+    margin: 0 0 4px;
+    color: var(--ink-soft);
+    font: 700 0.7rem/1.2 var(--font-mono);
+    letter-spacing: 0.1em;
+}
+.menu-sheet__header h2 {
+    margin: 0;
+    font: 400 1.6rem/1.2 var(--font-display);
+    text-transform: uppercase;
+}
+.menu-sheet__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+    border: var(--bw-chip) solid var(--ink);
+    background: var(--surface);
+    color: var(--ink);
+    cursor: pointer;
+}
+.menu-sheet__close svg { width: 20px; height: 20px; }
+.menu-sheet__links {
+    display: grid;
+    border-top: var(--bw-chip) solid var(--ink);
+}
+.menu-sheet__links a {
+    display: grid;
+    grid-template-columns: 36px 1fr 24px;
+    align-items: center;
+    min-height: 58px;
+    border-bottom: var(--bw-chip) solid var(--ink);
+    color: var(--ink);
+    text-decoration: none;
+}
+.menu-sheet__links a span {
+    color: var(--ink-soft);
+    font: 700 0.7rem/1 var(--font-mono);
+}
+.menu-sheet__links a strong {
+    font: 400 1.15rem/1.1 var(--font-display);
+    text-transform: uppercase;
+}
+.menu-sheet__links a b {
+    justify-self: end;
+    color: var(--accent);
+    font-size: 1.25rem;
+}
+.menu-sheet__links a:active,
+.menu-sheet__links a[aria-current="page"] {
+    background: var(--accent);
+    color: var(--on-accent);
+    padding: 0 10px;
+}
+.menu-sheet__links a:active span,
+.menu-sheet__links a:active b,
+.menu-sheet__links a[aria-current="page"] span,
+.menu-sheet__links a[aria-current="page"] b {
+    color: inherit;
 }
 
 /* Theme picker sheet */
@@ -1362,7 +1459,7 @@ body::before {
 
     .get-listed__card { grid-template-columns: 1fr; padding: 44px 32px; }
     .top-bar__nav { display: none; }
-    .top-bar__dl { display: inline-flex; }
+    .menu-toggle { display: inline-flex; }
 }
 
 @media (max-width: 640px) {
@@ -2293,11 +2390,22 @@ body.has-announce {
 .news-article__newsletter { margin: 40px 0 32px; }
 
 @media (max-width: 640px) {
-    .newsletter { padding: 26px 20px; }
+    .newsletter:not(.newsletter--compact) { padding: 18px 14px; }
+    .newsletter--compact { padding: 16px 0; }
     .newsletter-section { padding: 48px 16px; }
-    .newsletter__field { flex-direction: column; gap: 12px; }
-    .newsletter__field input[type="email"],
-    .newsletter__field button { width: 100%; }
+    .newsletter__head { margin-bottom: 12px; }
+    .newsletter__field { flex-wrap: nowrap; gap: 8px; }
+    .newsletter__field input[type="email"] {
+        flex: 1 1 0;
+        height: 44px;
+        padding: 0 10px;
+    }
+    .newsletter__field button {
+        flex: 0 0 auto;
+        height: 44px;
+        padding: 0 14px;
+        font-size: 0.9375rem;
+    }
 }
 
 /* ══════════════════════════════════════════════════════════════
